@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sing-up Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loginsignup.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div id="container">
+        <div id="login-singupform">
+
+            <div class="upersideform">
+                <div class="upersideformcover">
+                    <div class="person"><i class="fa-regular fa-user"></i></div>
+                    <p>Welcome Back</p>
+                    <p>Sing in your expense Tracker account</p>
+                </div>
+            </div>
+            <form method="POST" action="/signup">
+                <div class="labelcover">
+                    <label for="FullNAME">Full Name</label>
+                    <div class="img-input">
+                        <div class="person-im"><i class="fa-regular fa-user"></i></div>
+                        <input type="text" name="FullNAME" class="inuput-box" placeholder="John Deo">
+                    </div>
+                </div>
+                <div class="labelcover">
+                    <label for="Email">Email Address</label>
+                    <div class="img-input">
+                        <div class="person-im"><i class="fa-regular fa-envelope"></i></div>
+                        <input type="text" name="Email" class="inuput-box" placeholder="your@email.com">
+                    </div>
+                </div>
+                <div class="labelcover" style="padding-bottom: 0px;">
+                    <label for="Password">Password</label>
+                    <div class="img-input">
+                        <div class="person-im"><i class="fa-solid fa-lock"></i></div>
+                        <input type="text" name="Password" class="inuput-box" placeholder="Password">
+
+                    </div>
+                    <div style="margin: 8px;">
+                        <input type="checkbox" style="margin: 0px 5px 0px 0px;"><label for="">Remember Password</label>
+                    </div>
+                </div>
+                <button type="submit">Create Account</button>
+                <div class="SIGNUP">
+                    <p>Don't have an account ?<a href="/">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

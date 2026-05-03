@@ -1,0 +1,7 @@
+Flask==2.2.5
+gunicorn==21.2.0
+mysql-connector-python==8.3.0
+flask-mysqldb==2.0.0
+pymySQL==1.1.0
+openpyxl==3.1.2
+pandas==2.2.1

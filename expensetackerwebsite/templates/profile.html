@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Profile Update{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-container2">
+        <h2 class="update-p">Update Profile</h2>
+
+        {% if message %}
+        <p style="color: green;" class="update-m">{{ message }}</p>
+        {% endif %}
+
+        <form method="POST" action="/profile">
+            <div class="form-group">
+                <label class="profile-label">Name:</label>
+                <input type="text" value="{{ user.name }}" class="profile-input" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="profile-label">Email:</label>
+                <input type="text" value="{{ user.email }}" class="profile-input" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="profile-label">Created Date:</label>
+                <input type="text" value="{{ user.created_at }}" class="profile-input" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="profile-label">Contact Number:</label>
+                <input type="text" name="contact_no" class="profile-input" value="{{ user.contact_no }}">
+            </div>
+
+            <button type="submit" class="update-detail">Update Contact</button>
+        </form>
+    </div>
+    <div class="profile-container2">
+        <h3 class="update-p">Change Password</h3>
+        <form method="POST" action="/profile" id="passwordForm">
+            <div class="form-group">
+                <label class="profile-labels">Current Password:</label>
+                <input type="password" name="current_password" class="profile-input" id="current_password" required>
+            </div>
+            <div class="form-group">
+                <label class="profile-labels">New Password:</label>
+                <input type="password" name="new_password" class="profile-input" id="new_password" required>
+            </div>
+            <div class="form-group">
+                <label class="profile-labels">Confirm New Password:</label>
+                <input type="password" name="confirm_password" class="profile-input" id="confirm_password" required>
+            </div>
+            <div class="toggleAll"><input type="checkbox" id="toggleAll"><p>Show/Hide Password</p></div>
+            <button type="submit" class="update-detail"  name="change_password">Update Password</button>
+        </form>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+{% endblock %}

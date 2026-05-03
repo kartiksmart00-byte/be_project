@@ -1,0 +1,112 @@
+{% extends 'base.html'%}
+
+{% block title%} Expense {% endblock%}
+
+{% block content %}
+
+<div class="income-main">
+    <div class="part-1">
+        <div class="income-overview">
+            <div>
+                <div class="income-text p-heading">
+                    <p>Expense Overview</p>
+                </div>
+                <p class="in">Track your earning over time and analyze your income</p>
+            </div>
+            <div class="income-add">
+                <div class="add-img">+</div>
+                <button class="add-income" id="addIncomeBtn" onclick="incomeadd()">Add Expense</button>
+            </div>
+        </div>
+        <div class="jai-mata-di" style="height: 54svh; width:50vw ;">
+            <canvas id="line-chart"></canvas>
+        </div>
+    </div>
+    <div class="INCOME-ADDFORM" id="addIncomeBox">
+        <div class="income-h">
+            <p>Add Income</p>
+            <button class="remove"><i class="fa-solid fa-x"></i></button>
+        </div>
+        <div class="income-form">
+            <form id="myform" method="POST" action="/expense">
+                <div>
+                    <label for="source">Category</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" name="source" class="income-input" id="category" placeholder="Rent, Groceries , etc">
+                        <select name="source" id="categoryDropdown" class="income-input " style="width: 85%;">
+                            {% for row in categories%}
+                            <option value="{{ row.category_name }}">{{ row.category_name }}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                </div>
+                <label for="amount">Amount</label>
+                <input type="number" name="amount" class="income-input " id="amount">
+                <label for="date">Date</label>
+                <input type="date" name="date" class="income-input " id="date">
+                <button class="sum-income" type="submit">Add Expense</button>
+            </form>
+        </div>
+    </div>
+    <div class="part-2">
+        <div class="income-overview">
+            <div class="income-text p-heading">
+                <p>Expense Source</p>
+            </div>
+            <div class="income-add">
+                <div class="add-img">+</div>
+                <button class="add-income" id="reportBtnIncome">Generate Report</button>
+            </div>
+        </div>
+        <div class="outputbox">
+            <ul class="list-left">
+                {% for expense in expenses %}
+                <li>
+                    <div class="ulset">
+                        <div class="li-set">
+                            <div class="category">{{ expense.category }}</div>
+                            <div class="date">{{ expense.date }}</div>
+                        </div>
+                        <form method="post" class="deltebtn">
+                            <input type="hidden" name="delete_id" value="{{ expense.expense_id }}">
+                            <button type="submit" onclick="return confirm('Delete this expense record?')">Delete</button>
+                        </form>
+                        <div class="amount-icon">
+                            <i class="fa-solid fa-arrow-trend-down"></i>
+                            <div class="amount">{{ expense.amount }}</div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <ul class="list-right"></ul>
+        </div>
+    </div>
+    <div class="report-section">
+        <div id="reportOptionsIncome" style="display:none; margin-top:10px;">
+            <form method="POST" action="{{ url_for('generate_report') }}">
+                <label class="report-h">Select Report Type:</label>
+                <select name="report_type" class="report_type">
+                    <option value="daily">Daily Expense Report</option>
+                    <option value="monthly">Monthly Expense Summary</option>
+                    <option value="income">Income Report</option>
+                    <option value="comparison">Expense vs Income Comparison</option>
+                    <option value="category">Category-Wise Expense Distribution</option>
+                    <option value="annual">Annual Financial Summary</option>
+                </select>
+                <label>Date Range:</label>
+                <input type="date" name="start_date">
+                <input type="date" name="end_date" class="edate">
+                <button type="submit" name="generate_report" class="btn btn-success">Generate</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const chartLabels = {{ chart_labels| tojson }};
+    const chartValues = {{ chart_values| tojson }};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/expense.js') }}"></script>
+
+{% endblock %}

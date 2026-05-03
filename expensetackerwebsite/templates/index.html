@@ -1,0 +1,112 @@
+{% extends 'base.html'%}
+
+{% block title%} Home {% endblock%}
+
+{% block content %}
+<div class="right-side">
+    <div class="total-show">
+        <div class="T-balance t-box">
+            <div class="t-img" style="background-color: blue;"><i class="fa-solid fa-wallet fix-img"></i></div>
+            <div class="T-balance-text">
+                <p class="t-text">Total Balance</p>
+                <p class="t-amount">₹{{ total_balance }}</p>
+            </div>
+        </div>
+        <div class="t-income t-box">
+            <div class="t-img" style="background-color: orange;"><i class="fa-solid fa-wallet fix-img"></i>
+            </div>
+            <div class="t-income-text">
+                <p class="t-text">Total Income</p>
+                <p class="t-amount">₹{{ total_income }}</p>
+            </div>
+        </div>
+        <div class="t-expense t-box">
+            <div class="t-img" style="background-color: red;"><i class="fa-solid fa-hand-holding-dollar fix-img"></i>
+            </div>
+            <div class="t-expense-text">
+                <p class="t-text">Total Expense</p>
+                <p class="t-amount">₹{{ total_expense }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="recent-financial">
+        <div class="t-transaction">
+            <div class="r-text">
+                <p class="p-heading">Recent Transaction</p>
+                <div class="income-add"
+                    style="background-color: lightgoldenrodyellow; border-color: lightgoldenrodyellow;">
+                    <div class="add-img">+</div>
+                    <button class="add-income" id="reportBtnIncome">Report</button>
+                </div>
+            </div>
+            <div class="recent-show">
+                <ul calss="show-ul">
+                    {% for txn in recent_txn %}
+                    <li>
+                        <div class="div1">
+                            <div class="div2">
+                                <div class="type">
+                                    {% if txn.type == 'income' %}
+                                    <div class="t-img2" style="background-color: orange;"><i
+                                            class="fa-solid fa-wallet fix-img"></i></div>
+                                    {% else %}
+                                    <div class="t-img2" style="background-color: red;"><i
+                                            class="fa-solid fa-hand-holding-dollar "></i></div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <div class="category">{{ txn.category }}</div>
+                                    <span class="date">{{ txn.date }}</span>
+                                </div>
+                            </div>
+                            <div class="show-amount">
+                                <div class="add-img">
+                                    {% if txn.type == 'income' %}
+                                    <i class="fa-solid fa-circle-up" style="color:green;"></i>
+                                    {% else %}
+                                    <i class="fa-solid fa-circle-down" style="color:red;"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="amount">₹{{ txn.amount }}</div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="financial-overview">
+            <div class="finance-text">
+                <p class="p-heading">Financial Overview</p>
+            </div>
+            <div class="chart">
+                <canvas id="dashboardchart"></canvas>
+            </div>
+        </div>
+
+    </div>
+    <div class="report-section">
+        <!-- <button id="reportBtnIncome" class="btn btn-primary">Generate Report</button> -->
+        <div id="reportOptionsIncome" style="display:none; margin-top:10px;">
+            <form method="POST" action="{{ url_for('generate_report') }}">
+                <label class="report-h">Select Report Type:</label>
+                <select name="report_type" class="report_type">
+                    <option value="daily">Daily Expense Report</option>
+                    <option value="monthly">Monthly Expense Summary</option>
+                    <option value="income">Income Report</option>
+                    <option value="comparison">Expense vs Income Comparison</option>
+                    <option value="category">Category-Wise Expense Distribution</option>
+                    <option value="annual">Annual Financial Summary</option>
+                </select>
+                <label>Date Range:</label>
+                <input type="date" name="start_date">
+                <input type="date" name="end_date" class="edate">
+                <button type="submit" name="generate_report" class="btn btn-success">Generate</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

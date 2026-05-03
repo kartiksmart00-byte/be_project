@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav>
+        <div class="heading-text">
+            Daily Expense And Budget Tracking Website
+        </div>
+    </nav>
+    <main class="layout"">
+        <div class=" left-side ">
+        <div class=" user-name ">
+        <div class="name"><p style="margin: 10px 10px 0px 10px;">welcome</p> {{ name }}</div>
+        </div>
+        <div class="feature-text {% if active =='dashboard' %}active{% endif %}">
+            <i class="fa-regular fa-house fix-img"></i>
+            <a href="/dashboard" class="nav-link ">Dashboard</a>
+        </div>
+        <div class="feature-text {% if active =='income' %}active{% endif %}">
+            <i class="fa-solid fa-wallet fix-img"></i>
+            <a href="/income" class="nav-link ">income</a>
+        </div>
+        <div class="feature-text {% if active =='expense' %}active{% endif %}">
+            <i class="fa-solid fa-hand-holding-dollar fix-img"></i>
+            <a href="/expense" class="nav-link">Expense</a>
+        </div>
+        <div class="feature-text {% if active =='profile' %}active{% endif %}">
+            <i class="fa-regular fa-user fix-img"></i>
+            <a href="/profile" class="nav-link">Profile</a>
+        </div>
+    
+        <div>
+            <div class="feature-text {% if active =='login' %}active{% endif %}">
+                <i class="fa-solid fa-arrow-right-from-bracket fix-img"></i>
+                <a href="/" class="nav-link">Logout</a>
+            </div>
+        </div>
+        </div>
+        <div class="main-content">
+            {% block content %}
+
+    
+            {% endblock %}
+        </div>
+    </main>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+</body>
+
+</html>
